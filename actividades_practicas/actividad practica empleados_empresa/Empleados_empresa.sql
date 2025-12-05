@@ -14,7 +14,9 @@ create table empleado(
     Municipio varchar(20),
     Cod_postal char(5),
     Sexo char(1),
-    Fecha_nac date
+    Fecha_nac date,
+    
+    constraint check_sexo check(upper(Sexo) in ('H', 'M'))
 );
 
 create table historial_salarial(
@@ -76,3 +78,25 @@ create table historial_laboral(
 	constraint fk_historialLaboral_dpto foreign key(Cod_dpto) references departamento(Cod_dpto),
 	constraint fk_historialLaboral_empleadoSuper foreign key(DNI_super) references empleado(DNI)
 );
+
+-- Insercion de datos
+describe empleado;
+insert into empleado values
+	('48563218J', 'Enrique', 'Huertas', 'Roldan', 'C/Huerta Daza Nº10', 'Sevilla', 'El Viso del Alcor', '41520', 'H', '2005-05-25'),
+	('12045786A', 'Francisco' , 'Santos', 'de los Santos', 'C/Negrilla Nº45', 'Sevilla', 'Alcala', '41500', 'H', '2000-07-20'),
+	('57864158P', 'Juan' , 'Gomez', 'Garcia', 'C/La Polilla Nº20', 'Malaga', 'La palmilla', '57820', 'H', '1980-03-15'),
+-- 	('111222', 'Sergio' , 'Palma', 'Entrena', null, null, null, 'P', null), NO DEJA
+-- 	('222333', 'Lucia' , 'Ortega', 'Plus', null, null, null, null, null), NO DEJA
+	('11122233I', 'Sergio' , 'Palma', 'Entrena', null, null, null, null, 'H', null), -- SI DEJA
+ 	('22233344D', 'Lucia' , 'Ortega', 'Plus', null, null, null, null, null, null); -- SI DEJA
+
+select * from empleado;
+
+describe historial_salarial;
+insert into historial_salarial values
+	('48563218J', 1958.85, '2018-09-18', '2020-04-20'),
+    ('48563218J', 2299.90, '2020-06-3', null),
+    ('57864158P', 3000, '2023-01-12', null);
+    
+select * from historial_salarial;
+
